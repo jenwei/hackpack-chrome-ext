@@ -47,6 +47,23 @@
 function modifyText(text, settings) {
 	// Currently, this method returns the unmodified text.
 	// You'll need to update this method to return the updated text.
+	
+	// Task A Code
+	 // text = text.replace(/cal/g, "butt");
+	 // text = text.replace(/Cal/g, "Butt");
+	 // text = text.replace(/CAL/g, "BUTT");
+	
+	// Task D Code
+	for (var i = 0; i<settings.length; i++) {
+		if (settings[i].key.indexOf("img") <= -1) {
+			var key = settings[i].key;
+			var value = settings[i].value;
+			var re = new RegExp(key, "g");
+			//console.log(value);
+			text = text.replace(re, value);
+		}
+	}
+	//console.log(text);
 	return text;
 }
 
@@ -77,7 +94,28 @@ function modifyText(text, settings) {
 function parseSettings(lines) {
 	// Currently, this method returns nothing. You'll have to
 	// update this method to return the replacement rules.
-	return null;
+	var settings = [];
+	var img_counter = 0;
+	for (var i = 0; i<lines.length; i++){
+		line = lines[i]
+		if (line.indexOf("img") <= -1){
+			var TFtexts = line.split(" -> "); // can be rewritten as test.split (/ --> /g)
+			var from = TFtexts[0];
+			var to = TFtexts[1];
+			settings.push({
+				key: from,
+				value: to
+			});
+		} else {
+			var IMGtexts = line.split(" -> ");
+			settings.push({
+				key: ('img'+String(img_counter)),
+				value: IMGtexts[1]
+			});
+			img_counter ++;
+		}
+	}
+	return settings;
 }
 
 /**
@@ -111,13 +149,45 @@ function parseSettings(lines) {
  	// (we recommend Beyonce: http://i.imgur.com/umfG8Lj.jpg),
  	// and (3) replace the src of the image with the replacement
  	// image.
+
+ 	// HARDCODE VERSION
+ 	// imgs = document.querySelectorAll("img");
+ 	// console.log(imgs);
+ 	// for (var i = 0; i < imgs.length; i++){
+ 	// 	imgs[i].src = "https://i.imgur.com/umfG8Lj.jpg";
+ 	// }
+ 	// return;
+
+ 	// TASK E
+ 	// FINDING ALL IMG SETTINGS
+ 	var imgsettings = [];
+	for (var i = 0; i<settings.length; i++) {
+		if (settings[i].key.indexOf("img") > -1) {
+			var key = settings[i].key;
+			var value = settings[i].value;
+			imgsettings.push({
+				key: key,
+				value: value
+			});
+		}
+	}
+
+ 	imgs = document.querySelectorAll("img");
+ 	
+ 	for (var i = 0; i < imgs.length; i++) {
+ 		if (i < imgsettings.length) {
+ 			var IMGindex = imgsettings[i].key;
+ 			imgs[i].src = imgsettings[i].value;
+ 		} else {
+ 			imgs[i].src = "https://i.giphy.com/YwfNyrzrLC3dK.gif";
+ 		}
+ 	}
  	return;
  }
 
 /****************************w************
  * DO NOT MODIFY CODE BENEATH THIS LINE *
  ****************************************/
-
 chrome.extension.sendMessage({}, function(response) {
 	var readyStateCheckInterval = setInterval(function() {
 		if (document.readyState === "complete") {
@@ -139,7 +209,6 @@ chrome.extension.sendMessage({}, function(response) {
 		}
 	}, 10);
 });
-
 // Update a text node's contents
 function handleText(textNode, settings)
 {
@@ -147,12 +216,10 @@ function handleText(textNode, settings)
 	var modifiedText = modifyText(text, settings);
 	textNode.nodeValue = modifiedText;
 }
-
 // Full credit to: http://is.gd/mwZp7E
 function walk(node, settings)
 {
 	var child, next;
-
 	// For more info, read http://www.w3schools.com/jsref/prop_node_nodetype.asp
 	switch (node.nodeType)
 	{
@@ -167,7 +234,6 @@ function walk(node, settings)
 				child = next;
 			}
 			break;
-
 		case 3: // Text node
 			handleText(node, settings);
 			break;
