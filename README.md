@@ -3,6 +3,8 @@
 ## Description
 This Chrome Extension is a spin-off of the famous "cloud to butt" extension, where instead, users can input what words they want to have altered. Additionally, images can also be inserted.
 
+This hackpack was originally named 'Cal to Butt' but I've renamed it since it can really do find and replace any pair of words.
+
 As of 02-14-2016, the input format for text is ['old word' -> 'new word'], and the input format for an image is [img -> 'link']. 
 
 i.e. chicken -> butt
