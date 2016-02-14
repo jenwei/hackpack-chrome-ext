@@ -1,6 +1,16 @@
-# Cal to Butt: Chrome Extension Hackpack @ TreeHacks 2016
+# [This] to [That]: Chrome Extension Hackpack @ TreeHacks 2016
 
-*Come join us on [#hackpack-chrome-ext](https://treehacks-2016.slack.com/messages/hackpack-chrome-ext) on Slack to get help, hang out, and show off your project!*
+## Description
+This Chrome Extension is a spin-off of the famous "cloud to butt" extension, where instead, users can input what words they want to have altered. Additionally, images can also be inserted.
+
+As of 02-14-2016, the input format for text is ['old word' -> 'new word'], and the input format for an image is [img -> 'link']. 
+
+i.e. chicken -> butt
+i.e. img -> https://somewebsite.link/blahblah.gif
+
+Right now, you cannot specify what image you want where. If you input two images, then the first two images scraped from the page will be the ones you selected, and all the other ones are hard-coded to be a gif of Beyonce (because Beyonce).
+
+Below is the original read-me from the Stanford hackpack repo I forked from.
 
 ## Overview
 
