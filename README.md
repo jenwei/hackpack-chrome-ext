@@ -12,7 +12,7 @@ i.e. img -> https://somewebsite.link/blahblah.gif
 
 Right now, you cannot specify what image you want where. If you input two images, then the first two images scraped from the page will be the ones you selected, and all the other ones are hard-coded to be a gif of Beyonce (because Beyonce).
 
-Below is the original read-me from the Stanford hackpack repo I forked from.
+Below is the original read-me from the Stanford hackpack repo I forked from (thanks to Sam from Stanford for putting this together!)
 
 ## Overview
 
